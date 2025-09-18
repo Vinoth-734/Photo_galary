@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login (Dev Mode)</h2>
+
+<form method="post" class="row g-3">
+    <div class="col-md-6">
+        <label class="form-label">Username</label>
+        <input name="username" class="form-control" required />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Role</label>
+        <select name="role" class="form-control">
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary">Login</button>
+        <a class="btn btn-secondary" asp-controller="Photo" asp-action="Index">Cancel</a>
+    </div>
+</form>
