@@ -42,14 +42,17 @@
                     <p class="mb-2"><small>By: @photo.UploadedBy?.Username  | @photo.UploadedAt.ToLocalTime().ToString("g")</small></p>
                     <div class="mt-auto d-flex justify-content-between">
                         <a class="btn btn-sm btn-outline-primary" asp-controller="Photo" asp-action="Details" asp-route-id="@photo.Id">Details</a>
-
                         @if (currentRole == "Admin")
                         {
-                            <form asp-action="Delete" method="post" onsubmit="return confirm('Delete this photo (soft delete)?');">
-                                <input type="hidden" name="id" value="@photo.Id" />
-                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                            </form>
+                            <div class="d-flex gap-2">
+                                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@photo.Id">Edit</a>
+                                <form asp-action="Delete" method="post" onsubmit="return confirm('Delete this photo (soft delete)?');">
+                                    <input type="hidden" name="id" value="@photo.Id" />
+                                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                </form>
+                            </div>
                         }
+                        
                     </div>
                 </div>
             </div>

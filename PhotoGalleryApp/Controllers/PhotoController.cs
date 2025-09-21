@@ -105,6 +105,43 @@ namespace PhotoGalleryApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: /Photo/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var role = HttpContext.Items["Role"]?.ToString() ?? "";
+            if (role != "Admin")
+                return Unauthorized("Only Admins can edit photos.");
+
+            var photo = await _db.Photos.FindAsync(id);
+            if (photo == null || photo.IsDeleted)
+                return NotFound();
+
+            return View(photo);
+        }
+
+        // POST: /Photo/Edit/5
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Photo updatedPhoto)
+        {
+            var role = HttpContext.Items["Role"]?.ToString() ?? "";
+            if (role != "Admin")
+                return Unauthorized("Only Admins can edit photos.");
+
+            var photo = await _db.Photos.FindAsync(id);
+            if (photo == null || photo.IsDeleted)
+                return NotFound();
+
+            
+            photo.Title = updatedPhoto.Title;
+            photo.Description = updatedPhoto.Description;
+            photo.Tags = updatedPhoto.Tags;
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+           
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
